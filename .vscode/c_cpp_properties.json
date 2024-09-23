@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Users/Lenovo/AppData/Local/R/win-library/4.3/Rcpp/include",
+                "C:/Users/Lenovo/AppData/Local/R/win-library/4.3/RcppParallel/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "cl.exe",
+            "intelliSenseMode": "windows-msvc-x64",
+            "cppStandard": "gnu++98"
+        }
+    ],
+    "version": 4
+}
