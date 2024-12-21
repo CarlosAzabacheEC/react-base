@@ -5,6 +5,7 @@ import { productPaginationReducer } from "./slices/productPaginationSlice";
 import { categoryReducer } from "./slices/categorySlice";
 import { securityReducer } from "./slices/securitySlice";
 import {forgotPasswordReducer} from "./slices/forgotPasswordSlice"; 
+import { resetPasswordReducer } from "./slices/resetPasswordSlice";
 
 
 
@@ -15,7 +16,9 @@ export default configureStore({
         productPagination: productPaginationReducer,
         category: categoryReducer,
         security: securityReducer, 
-        forgotPassword: forgotPasswordReducer        
-    },
+        forgotPassword: forgotPasswordReducer,
+        resetPassword: resetPasswordReducer        
+
+    }, 
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 })
