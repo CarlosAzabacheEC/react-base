@@ -5,8 +5,11 @@ import { getProductById } from "../../actions/productsAction";
 import { useAlert } from "react-alert";
 import Loader from "../layout/Loader";
 import { Carousel } from "react-bootstrap";
+import { useState } from "react";
 
 const ProductDetail = () => {
+
+  const [quantity, setQuantity]= useState(1)
   const dispatch = useDispatch();
 
   const alert = useAlert();
@@ -23,31 +26,40 @@ const ProductDetail = () => {
     }
   }, [dispatch, alert, error, id]);
 
-  if(!product || loading)
-  {
-    return <Loader />
+  if (!product || loading) {
+    return <Loader />;
+  }
+  
+  const increaseQty=()=>{
+    const count = document.querySelector(".count"); 
+    if(count.valueAsNumber>= product.stock) return; 
+
+    const quantity = count.valueAsNumber+1; 
+    setQuantity(quantity); 
+   
   }
 
+  const decreaseQty=()=>{
+    const count = document.querySelector(".count"); 
+    if(count.valueAsNumber<= 1) return; 
 
+    const quantity = count.valueAsNumber-1; 
+    setQuantity(quantity); 
+  }
   return (
     <div className="row f-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">
-
-            <Carousel  pause="hover">
-                 {
-                    product.images.map( image => (
-                        <Carousel.Item key={image.id}>
-                            <img 
-                                className="d-block w-100"
-                                src={image.url}
-                                alt={product.nombre}
-                            />
-                        </Carousel.Item>
-                    ))
-                 }
-            </Carousel>
-
-
+        <Carousel pause="hover">
+          {product.images.map((image) => (
+            <Carousel.Item key={image.id}>
+              <img
+                className="d-block w-100"
+                src={image.url}
+                alt={product.nombre}
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
       </div>
 
       <div className="col-12 col-lg-5 mt-5">
@@ -57,49 +69,54 @@ const ProductDetail = () => {
         <hr />
 
         <div className="rating-outer">
-          <div className="rating-inner" style={{ width: `${(product.rating/5)*100}%`}}  ></div>
+          <div
+            className="rating-inner"
+            style={{ width: `${(product.rating / 5) * 100}%` }}
+          ></div>
         </div>
-        <span id="no_of_reviews">( {product.numeroReviews}  Reviews)</span>
+        <span id="no_of_reviews">( {product.numeroReviews} Reviews)</span>
 
         <hr />
 
         <p id="product_price">$ {product.precio}</p>
+
         <div className="stockCounter d-inline">
-          <span className="btn btn-danger minus">-</span>
+          <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
 
           <input
             type="number"
             className="form-control count d-inline"
-            value="1"
+            value={quantity}
             readOnly
           />
 
-          <span className="btn btn-primary plus">+</span>
+          <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
         </div>
+
         <button
           type="button"
           id="cart_btn"
           className="btn btn-primary d-inline ml-4"
         >
-          Add to Cart
+          Agregar al Carrito
         </button>
 
         <hr />
 
         <p>
-          Status: 
-          <span id="stock_status" className={ product.stock>0 ? "greenColor" : "redColor"}>  
-            {product.stock > 0 ? "En Stock" : "Fuera de Stock"}  
+          Status:
+          <span
+            id="stock_status"
+            className={product.stock > 0 ? "greenColor" : "redColor"}
+          >
+            {product.stock > 0 ? "En Stock" : "Fuera de Stock"}
           </span>
         </p>
 
         <hr />
 
         <h4 className="mt-2">Description:</h4>
-        <p>
-                 {product.descripcion}
-
-        </p>
+        <p>{product.descripcion}</p>
         <hr />
         <p id="product_seller mb-3">
           Vendedor: <strong> {product.vendedor} </strong>

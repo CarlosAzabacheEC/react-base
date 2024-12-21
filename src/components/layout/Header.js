@@ -21,7 +21,9 @@ const Header = () => {
       <nav className="navbar row">
         <div className="col-12 col-md-3">
           <div className="navbar-brand">
-            <img src="/images/logo_vaxi.png" />
+            <Link to="/">
+              <img src="/images/logo_vaxi.png" />
+            </Link>
           </div>
         </div>
 
@@ -81,15 +83,11 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            
-            !loading &&
-            (
-            <Link className="btn ml-4" id="login_btn" to="/login">
-              Login
-            </Link>
+            !loading && (
+              <Link className="btn ml-4" id="login_btn" to="/login">
+                Login
+              </Link>
             )
-
-
           )}
         </div>
       </nav>
